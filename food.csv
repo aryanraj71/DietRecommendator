@@ -1,0 +1,98 @@
+Food_items,Weight_Gain,Healthy,Weight_Loss,Vegetarian,Non_Vegetarian,Diabetes_Friendly,Low_Sodium,Gluten_Free,Lactose_Free,Nut_Free,Meal_Type,Calories,Protein,Carbs,Fat
+Asparagus Cooked,0,1,1,1,0,1,1,1,1,1,Lunch,22,2.4,4.1,0.2
+Avocados,1,1,0,1,0,1,1,1,1,1,Snack,160,2,8.5,15
+Bananas,1,1,0,1,0,1,1,1,1,1,Breakfast,89,1.1,23,0.3
+Bagels made in wheat,1,0,0,1,0,0,0,0,1,1,Breakfast,250,10,49,1.5
+Vegetable Upma ,1,0,0,1,0,0,0,0,1,1,Breakfast,270,5,35,9
+Aloo paratha with Ghee,1,0,0,1,0,0,0,0,1,1,Breakfast,280,8,45,12
+Berries,0,1,1,1,0,1,1,1,1,1,Snack,349,14,77,0.4
+Brocolli,0,1,1,1,0,1,1,1,1,1,Lunch,25,3.8,3.1,0.5
+Arbi Fry,1,0,0,1,0,0,1,1,1,1,Lunch,280,2,30,16
+Vegetable Pulao,1,1,0,1,0,0,1,1,1,1,Lunch,400,6,76,9
+Cauliflower,1,1,1,1,0,1,1,1,1,1,Lunch,32,3,6.3,0.3
+American cheese,1,0,0,1,0,0,0,1,0,1,Snack,331,20,8.3,24
+Coffee,0,1,1,1,0,1,1,1,1,1,Breakfast,2,0.3,0.2,0
+Corn,0,1,1,1,0,1,0,1,1,1,Lunch,97,3.3,22,1.4
+Dark chocolates,1,1,0,1,0,0,1,1,1,1,Snack,556,5.5,60,32
+Grapes,0,1,1,1,0,1,1,1,1,1,Snack,93,5.6,17,2.1
+Milk,1,1,0,1,0,1,1,1,0,1,Breakfast,97,3.8,5.2,6.9
+Cashew Nuts,1,1,0,1,0,0,1,1,1,0,Snack,553,18,30,44
+Mixed Vegetables,1,0,0,1,0,1,1,1,1,1,Lunch,300,5,35,12
+Orange,0,1,1,1,0,1,1,1,1,1,Breakfast,97,1.5,25,0.2
+Pasta canned with tomato sauce,1,0,0,1,0,0,0,0,1,1,Dinner,71,2.2,14,0.7
+Pears,0,1,1,1,0,1,1,1,1,1,Snack,57,0.4,15,0.1
+Peas,0,1,1,1,0,1,1,1,1,1,Lunch,81,5.4,14,0.4
+Protein Powder,1,1,0,1,0,1,1,1,1,1,Snack,411,46,19,17
+Pumpkin,0,1,1,1,0,1,1,1,1,1,Lunch,18,0.7,4.3,0.1
+Tuna Salad,1,1,0,0,1,1,1,1,1,1,Dinner,187,16,9.4,9.3
+Tuna Fish,1,1,0,0,1,1,1,1,1,1,Lunch,184,30,0,6.3
+Chicken ,1,0,0,0,1,0,0,0,0,0,Dinner,380,23,42,21
+Veg Manchurian ,1,0,0,1,0,0,0,0,0,0,Dinner,420,8,48,20
+Paneer ,1,0,0,1,0,0,0,0,0,0,Dinner,360,11,33,28
+French Fries,1,0,0,1,0,0,0,1,1,1,Snack,289,3.5,37,14
+Chicken Biryani,1,0,0,0,1,0,0,0,1,0,Dinner,370,22,45,22
+Egg Curry ,1,0,0,0,1,0,0,0,1,1,Dinner,320,18,36,15
+Fish with Rice,1,0,0,0,1,0,0,0,0,1,Dinner,256,25,30,16
+Chicken Sandwich,1,0,0,0,1,0,0,0,1,1,Lunch,257,15,23,12
+Chocolate Doughnuts,1,0,0,1,0,0,0,0,0,1,Snack,452,4.9,51,25
+Pop Corn,0,1,1,1,0,1,1,1,1,1,Snack,429,13,73,9.5
+Dosa,1,1,0,1,0,0,1,0,1,1,Breakfast,168,4.5,29,3.7
+Idli,1,1,0,1,0,0,1,0,1,1,Breakfast,156,5,30.2,1.7
+Poha,0,1,1,1,0,1,1,1,1,1,Breakfast,130,2.6,26.9,1.5
+Chappati,0,1,1,1,0,1,1,0,1,1,Lunch,297,11,46,7.5
+Tomato,0,1,1,1,0,1,1,1,1,1,Dinner,16,1.2,3.2,0.2
+Yogurt,1,1,0,1,0,1,1,1,0,1,Snack,60,3.1,7,4
+Brownie,1,0,0,1,0,0,0,0,0,1,Snack,407,4.4,84,6.2
+Noodles,1,0,0,1,0,0,0,0,1,1,Dinner,108,1.8,24,0.2
+Uttapam,1,1,0,1,0,0,1,0,1,1,Breakfast,188,4.4,26.4,7.2
+Bhaji Pav,1,0,0,1,0,0,0,0,1,1,Snack,151,9,29.3,2.4
+Dal Makhani,1,1,0,1,0,1,1,1,1,1,Dinner,109,2.1,6.3,8.5
+Almonds,1,1,0,1,0,1,1,1,1,0,Snack,579,21,22,50
+Mushrooms,0,1,1,1,0,1,1,1,1,1,Lunch,22,3.1,3.3,0.3
+Egg Yolk cooked,1,1,0,0,1,1,1,1,1,1,Breakfast,196,14,0.8,15
+Sweet Potatoes cooked,1,1,1,1,0,1,1,1,1,1,Lunch,76,1.4,18,0.1
+Besan Cheela,0,1,1,1,0,1,1,1,1,1,Breakfast,120,6,14,4
+Chicken Curry,1,0,0,0,1,0,0,0,0,1,Lunch,460,25,15,35
+Boiled Potatoes,0,1,1,1,0,1,1,1,1,1,Lunch,87,1.9,20,0.1
+White Rice,1,0,0,1,0,0,1,1,1,1,Lunch,360,6.6,79,0.6
+Orange juice,1,1,0,1,0,1,1,1,1,1,Snack,45,0.7,10,0.2
+Greek yogurt plain,1,1,1,1,0,1,1,1,0,1,Breakfast,73,10,3.9,1.9
+Oat Bran Cooked,0,1,1,1,0,1,1,1,1,1,Breakfast,40,3.2,11,0.9
+Brown Rice Khichdi,0,1,1,1,0,1,1,1,1,1,Lunch,180,6,30,3
+Green Tea,0,1,1,1,0,1,1,1,1,1,Snack,1,0.2,0,0
+Chia seeds,0,1,1,1,0,1,1,1,1,1,Dinner,486,17,42,31
+Cottage cheese with vegetables,1,1,1,1,0,1,1,0,0,1,Dinner,95,11,3,4.2
+Salmon,1,1,1,0,1,1,1,1,1,1,Dinner,127,21,0,4.4
+Cereals-Corn Flakes,0,1,1,1,0,1,1,1,1,1,Breakfast,384,5.9,88,0.9
+Beans,1,1,1,1,0,1,1,1,1,1,Lunch,31,1.8,7,0.2
+Lentils,1,1,1,1,0,1,1,1,1,1,Lunch,101,8.8,21,0.5
+Pasta with corn homemade,1,1,0,1,0,1,0,0,1,1,Dinner,126,2.6,28,0.7
+Tea,0,1,0,1,0,1,1,1,1,1,Snack,1,0,0.2,0
+Apples,0,1,1,1,0,1,1,1,1,1,Snack,52,0.3,14,0.2
+Strawberries,0,1,1,1,0,1,1,1,1,1,Snack,32,0.7,7.7,0.3
+Quninoa,1,1,1,1,0,1,1,1,1,1,Lunch,120,4.4,21,1.9
+Goat meat,1,1,0,0,1,0,0,1,1,1,Dinner,109,21,57,2.3
+Chicken Strips,1,0,0,0,1,0,0,1,1,1,Snack,295,19,22,15
+Palak Soup,0,1,1,1,0,1,1,1,1,1,Snack,60,2,9,1
+Bajra Roti,0,1,1,1,0,1,1,1,1,1,Dinner,110,3,22,1
+Mexican Rice,1,0,0,1,0,0,0,1,1,1,Lunch,195,3.6,34,4.9
+Fried Shrimp,1,0,0,0,1,0,0,1,1,1,Dinner,319,14,21,20
+Spaghetti and meatballs,1,0,0,0,1,0,0,0,0,1,Dinner,170,7.8,16,8.5
+Rajma Chawal,1,0,0,1,0,0,0,0,0,1,Dinner,194,10,48,15
+Pork cooked,1,1,0,0,1,0,0,1,1,1,Dinner,297,26,0,21
+Bacon cooked,1,0,0,0,1,0,0,0,1,1,Breakfast,146,28,1.8,2.8
+Tofu Bhurji,0,1,1,1,0,1,1,1,1,1,Dinner,150,10,7,8
+Nachos,1,0,0,1,0,0,0,0,1,1,Snack,350,4.3,35,22
+Chicken Popcorn,1,0,0,0,1,0,0,1,1,1,Snack,351,18,21,22
+Turkey cooked,1,1,0,0,1,1,1,1,1,1,Dinner,203,27,0,10
+Oyster cooked,1,1,0,0,1,1,1,1,1,1,Dinner,159,29,0,4
+Beef sticks,1,0,0,0,1,0,0,1,1,1,Snack,550,22,5.4,50
+Banana Chips,1,0,0,1,0,0,0,1,1,1,Snack,519,2.3,58,34
+Honey,1,1,1,1,0,0,1,1,1,1,Snack,304,0.3,82,0
+Chocolate Icecream,1,0,0,1,0,0,0,0,0,1,Snack,216,3.8,28,11
+Vanilla Ice cream,1,0,0,1,0,0,0,0,0,1,Snack,207,3.5,24,11
+Strawberry Icecream,1,0,0,1,0,0,0,0,0,1,Snack,192,3.2,28,8.4
+Marshmallows,1,0,0,1,0,0,0,1,1,1,Snack,318,1.8,81,0.2
+Chocolate milk,1,0,0,1,0,0,0,0,0,1,Snack,535,7.7,59,30
+Rice Pudding,1,0,0,1,0,0,0,0,0,1,Snack,376,2.7,91,0.1
+Bottle Gourd,0,1,1,1,0,1,1,1,1,1,Lunch,80,2,12,2

@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Recommendation System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #45a049;
+            --accent-color: #8BC34A;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --danger-color: #dc3545;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .checkbox-item input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .btn {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            display: none;
+        }
+        
+        .bmi-result {
+            font-weight: 600;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .underweight {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .healthy {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .overweight {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .meal-category {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .meal-category h3 {
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .meal-category ul {
+            list-style-type: none;
+        }
+        
+        .meal-category li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .meal-category li:before {
+            content: "•";
+            color: var(--accent-color);
+            font-size: 20px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .visualization {
+            margin: 20px 0;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .visualization img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .visualization h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .food-selection {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .food-selector {
+            margin-bottom: 20px;
+        }
+        
+        .food-selector label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .select2-container {
+            width: 100% !important;
+            margin-bottom: 10px;
+        }
+        
+        .food-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin-left: 28px;
+        }
+        
+        .nutrient-recommendation {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nutrient-recommendation h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow: auto; /* Enable scrolling if content overflows */
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto; /* Reduced margin to give more space */
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%; /* Increased width to 90% */
+            max-width: 900px; /* Increased max-width to accommodate larger charts */
+            max-height: 90vh; /* Set max height to 90% of viewport height */
+            overflow-y: auto; /* Allow vertical scrolling if needed */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .inspiring-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 20px auto;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                width: 95%; /* Slightly wider on mobile */
+                margin: 10% auto;
+                max-height: 85vh; /* Adjust max height for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-utensils"></i> Personalized Diet Recommendation</h1>
+            <p class="tagline">Get a personalized meal plan based on your nutritional needs</p>
+        </header>
+        
+        <form id="dietForm">
+            <div class="form-group">
+                <label for="name"><i class="fas fa-user"></i> Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="dietType"><i class="fas fa-leaf"></i> Diet Preference</label>
+                <select id="dietType" name="dietType" required>
+                    <option value="">Select your preference</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="non-vegetarian">Non-Vegetarian</option>
+                    <option value="both">Both (Vegetarian & Non-Vegetarian)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="weight"><i class="fas fa-weight"></i> Weight (kg)</label>
+                <input type="number" id="weight" name="weight" min="1" step="0.1" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
+                <input type="number" id="height" name="height" min="50" max="300" required>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-allergies"></i> Dietary Restrictions (Select all that apply)</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="diabetes" name="restrictions" value="diabetes">
+                        <label for="diabetes">Diabetes</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hypertension" name="restrictions" value="hypertension">
+                        <label for="hypertension">High Blood Pressure</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="celiac" name="restrictions" value="celiac">
+                        <label for="celiac">Celiac Disease (Gluten-free)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="lactose" name="restrictions" value="lactose">
+                        <label for="lactose">Lactose Intolerance</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="nutAllergy" name="restrictions" value="nutAllergy">
+                        <label for="nutAllergy">Nut Allergy</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">
+                <i class="fas fa-check"></i> Get Nutrient Analysis
+            </button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing your nutritional needs...</p>
+        </div>
+        
+        <div id="nutrientAnalysis" style="display: none;">
+            <h2><i class="fas fa-chart-pie"></i> Your Nutrient Balance</h2>
+            <div id="bmiResult"></div>
+            <div id="restrictionsNote" style="margin-bottom: 15px;"></div>
+            
+            <div id="nutrientComparison" class="visualization">
+                <h3><i class="fas fa-balance-scale"></i> Current vs Recommended Nutrient Intake</h3>
+                <img id="nutrientPlot" src="" alt="Nutrient Comparison">
+            </div>
+            
+            <div id="nutrientRecommendation" class="nutrient-recommendation">
+                <h3><i class="fas fa-lightbulb"></i> Your Nutrient Recommendations</h3>
+                <div id="recommendationText"></div>
+            </div>
+            
+            <button id="getFoodOptionsBtn" class="btn">
+                <i class="fas fa-utensils"></i> Get Food Recommendations
+            </button>
+        </div>
+        
+        <div class="food-selection" id="foodSelection">
+            <h2><i class="fas fa-utensils"></i> Select Your Meals</h2>
+            
+            <div id="mealSelectors">
+                <!-- Meal selectors will be added here dynamically -->
+            </div>
+            
+            <button id="generatePlanBtn" class="btn btn-disabled" disabled>
+                <i class="fas fa-clipboard-list"></i> Generate Meal Plan
+            </button>
+        </div>
+        
+        <div class="results" id="results" style="display: none;">
+            <h2><i class="fas fa-clipboard-list"></i> Your Personalized Meal Plan</h2>
+            
+            <div id="clusterVisualization" class="visualization">
+                <h3><i class="fas fa-project-diagram"></i> Food Clusters Analysis</h3>
+                <p>Food items clustered by nutritional content using K-means machine learning algorithm</p>
+                <img id="clusterPlot" src="" alt="Food Clusters Visualization">
+            </div>
+            
+            <div id="mealPlanDisplay"></div>
+            
+            <div id="nutritionVisualization" class="visualization">
+                <h3><i class="fas fa-chart-bar"></i> Nutritional Composition</h3>
+                <img id="nutritionPlot" src="" alt="Nutritional Composition Visualization">
+            </div>
+            
+            <div class="action-buttons">
+                <button id="downloadBtn" class="btn">
+                    <i class="fas fa-download"></i> Download Meal Plan (PDF)
+                </button>
+                <button id="compareBtn" class="btn">
+                    <i class="fas fa-balance-scale"></i> Compare
+                </button>
+                <button id="resetBtn" class="btn btn-secondary">
+                    <i class="fas fa-redo"></i> Start Over
+                </button>
+            </div>
+        </div>
+        
+        <!-- Comparison Modal -->
+        <div id="compareModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">×</span>
+                <h2><i class="fas fa-balance-scale"></i> Compare Reports</h2>
+                <div class="form-group">
+                    <label for="reportSelect">Select a previous report to compare:</label>
+                    <select id="reportSelect" name="reportSelect">
+                        <option value="">Select a report</option>
+                    </select>
+                </div>
+                <button id="compareSubmitBtn" class="btn">
+                    <i class="fas fa-check"></i> Compare
+                </button>
+                <div id="comparisonResult" style="display: none;">
+                    <div class="visualization">
+                        <h3><i class="fas fa-chart-bar"></i> Nutrient Comparison</h3>
+                        <img id="comparisonPlot" src="" alt="Comparison Visualization" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="bmi-result">
+                        <p><strong>Previous BMI:</strong> <span id="previousBmi"></span></p>
+                        <p><strong>Current BMI:</strong> <span id="currentBmi"></span></p>
+                    </div>
+                    <div id="inspiringMessage" class="inspiring-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const loading = $('#loading');
+            const nutrientAnalysis = $('#nutrientAnalysis');
+            const foodSelection = $('#foodSelection');
+            const results = $('#results');
+            const mealSelectors = $('#mealSelectors');
+            const bmiResult = $('#bmiResult');
+            const restrictionsNote = $('#restrictionsNote');
+            const dietForm = $('#dietForm');
+            const clusterVisualization = $('#clusterVisualization');
+            const clusterPlot = $('#clusterPlot');
+            const nutritionVisualization = $('#nutritionVisualization');
+            const nutritionPlot = $('#nutritionPlot');
+            const nutrientComparison = $('#nutrientComparison');
+            const nutrientPlot = $('#nutrientPlot');
+            const recommendationText = $('#recommendationText');
+            const downloadBtn = $('#downloadBtn');
+            const compareBtn = $('#compareBtn');
+            const resetBtn = $('#resetBtn');
+            const generatePlanBtn = $('#generatePlanBtn');
+            const getFoodOptionsBtn = $('#getFoodOptionsBtn');
+            const mealPlanDisplay = $('#mealPlanDisplay');
+            const compareModal = $('#compareModal');
+            const reportSelect = $('#reportSelect');
+            const compareSubmitBtn = $('#compareSubmitBtn');
+            const comparisonResult = $('#comparisonResult');
+            const comparisonPlot = $('#comparisonPlot');
+            const previousBmi = $('#previousBmi');
+            const currentBmi = $('#currentBmi');
+            const inspiringMessage = $('#inspiringMessage');
+            
+            let currentUserData = null;
+            let currentPdfPath = null;
+            let currentReportId = null;
+            let selectedFoods = {
+                Breakfast: [],
+                Lunch: [],
+                Snack: [],
+                Dinner: []
+            };
+            
+            function initSelect2(selector) {
+                $(selector).select2({
+                    placeholder: "Select food items",
+                    allowClear: true,
+                    closeOnSelect: false,
+                    width: 'resolve',
+                    maximumSelectionLength: 3
+                });
+            }
+            
+            // Open comparison modal and fetch reports
+            compareBtn.click(function() {
+                if (!currentReportId) {
+                    alert('Please generate a meal plan first.');
+                    return;
+                }
+                
+                $.ajax({
+                    url: '/get-reports',
+                    method: 'GET',
+                    success: function(data) {
+                        reportSelect.empty();
+                        reportSelect.append('<option value="">Select a report</option>');
+                        data.reports.forEach(report => {
+                            if (report.id !== currentReportId) {
+                                reportSelect.append(`<option value="${report.id}">${report.date}</option>`);
+                            }
+                        });
+                        compareModal.show();
+                        comparisonResult.hide();
+                    },
+                    error: function(error) {
+                        console.error('Error fetching reports:', error);
+                        alert('Failed to load previous reports. Please try again.');
+                    }
+                });
+            });
+            
+            // Close comparison modal
+            $('.close-btn').click(function() {
+                compareModal.hide();
+                comparisonResult.hide();
+            });
+            
+            // Handle comparison submission
+            compareSubmitBtn.click(function() {
+                const selectedReportId = reportSelect.val();
+                if (!selectedReportId) {
+                    alert('Please select a report to compare.');
+                    return;
+                }
+                
+                loading.show();
+                $.ajax({
+                    url: '/compare-reports',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        report_id: selectedReportId,
+                        current_report_id: currentReportId
+                    }),
+                    success: function(data) {
+                        loading.hide();
+                        comparisonPlot.attr('src', `data:image/png;base64,${data.comparison_plot}`);
+                        previousBmi.text(data.previous_bmi.toFixed(1));
+                        currentBmi.text(data.current_bmi.toFixed(1));
+                        inspiringMessage.text(data.inspiring_message);
+                        comparisonResult.show();
+                        // Ensure the modal scrolls to show the full chart
+                        compareModal.scrollTop(0);
+                    },
+                    error: function(error) {
+                        loading.hide();
+                        console.error('Error comparing reports:', error);
+                        alert('Failed to compare reports. Please try again.');
+                    }
+                });
+            });
+            
+            resetBtn.click(function() {
+                dietForm.trigger('reset');
+                nutrientAnalysis.hide();
+                foodSelection.hide();
+                results.hide();
+                clusterVisualization.hide();
+                nutritionVisualization.hide();
+                nutrientComparison.hide();
+                mealSelectors.empty();
+                selectedFoods = {
+                    Breakfast: [],
+                    Lunch: [],
+                    Snack: [],
+                    Dinner: []
+                };
+                currentUserData = null;
+                currentPdfPath = null;
+                currentReportId = null;
+            });
+            
+            downloadBtn.click(function() {
+                if (!currentPdfPath) {
+                    alert('No PDF available to download. Please generate a meal plan first.');
+                    return;
+                }
+                
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = `/download-pdf?path=${encodeURIComponent(currentPdfPath)}`;
+                document.body.appendChild(iframe);
+                
+                setTimeout(() => {
+                    document.body.removeChild(iframe);
+                }, 5000);
+            });
+            
+            getFoodOptionsBtn.click(function() {
+                if (!currentUserData) return;
+                
+                loading.show();
+                nutrientAnalysis.hide();
+                
+                const mealTypes = ['Breakfast', 'Lunch', 'Snack', 'Dinner'];
+                let requestsCompleted = 0;
+                
+                mealTypes.forEach(mealType => {
+                    $.ajax({
+                        url: '/get-food-options',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ 
+                            bmi_category: currentUserData.bmi_category_num,
+                            meal_type: mealType,
+                            diet_type: currentUserData.dietType,
+                            restrictions: currentUserData.restrictions
+                        }),
+                        success: function(data) {
+                            requestsCompleted++;
+                            console.log(`Debug: Received options for ${mealType}:`, data.options);
+                            
+                            const selectorId = `food-select-${mealType.toLowerCase()}`;
+                            const selectorDiv = $('#' + selectorId).length ? $('#' + selectorId).parent() : $('<div>').addClass('food-selector');
+                            
+                            let icon;
+                            switch(mealType) {
+                                case 'Breakfast': icon = 'fa-sun'; break;
+                                case 'Lunch': icon = 'fa-utensils'; break;
+                                case 'Snack': icon = 'fa-coffee'; break;
+                                case 'Dinner': icon = 'fa-moon'; break;
+                                default: icon = 'fa-utensils';
+                            }
+                            
+                            const label = $('<label>').attr('for', selectorId)
+                                .html(`<i class="fas ${icon}"></i> Select ${mealType === 'Snack' ? 'Snacks' : mealType} Items (Choose up to 3)`);
+                            
+                            const select = $('#' + selectorId).length ? $('#' + selectorId) : $('<select>').attr('id', selectorId)
+                                .attr('multiple', 'multiple')
+                                .addClass('food-select');
+                            
+                            select.empty();
+                            
+                            if (data.options && data.options.length > 0) {
+                                data.options.forEach(food => {
+                                    const option = $('<option>')
+                                        .val(food.Food_items)
+                                        .text(food.Food_items)
+                                        .data('calories', food.Calories)
+                                        .data('protein', food.Protein)
+                                        .data('carbs', food.Carbs)
+                                        .data('fat', food.Fat);
+                                    select.append(option);
+                                });
+                            } else {
+                                select.append($('<option>').text('No options available').prop('disabled', true));
+                            }
+                            
+                            if (!$('#' + selectorId).length) {
+                                selectorDiv.append(label);
+                                selectorDiv.append(select);
+                                mealSelectors.append(selectorDiv);
+                                initSelect2(`#${selectorId}`);
+                            }
+                            
+                            if (requestsCompleted === mealTypes.length) {
+                                loading.hide();
+                                foodSelection.show();
+                                foodSelection[0].scrollIntoView({ behavior: 'smooth' });
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                            requestsCompleted++;
+                            
+                            const selectorId = `food-select-${mealType.toLowerCase()}`;
+                            if (!$('#' + selectorId).length) {
+                                const selectorDiv = $('<div>').addClass('food-selector');
+                                let icon;
+                                switch(mealType) {
+                                    case 'Breakfast': icon = 'fa-sun'; break;
+                                    case 'Lunch': icon = 'fa-utensils'; break;
+                                    case 'Snack': icon = 'fa-coffee'; break;
+                                    case 'Dinner': icon = 'fa-moon'; break;
+                                    default: icon = 'fa-utensils';
+                                }
+                                const label = $('<label>').attr('for', selectorId)
+                                    .html(`<i class="fas ${icon}"></i> Select ${mealType === 'Snack' ? 'Snacks' : mealType} Items (Choose up to 3)`);
+                                const select = $('<select>').attr('id', selectorId)
+                                    .attr('multiple', 'multiple')
+                                    .addClass('food-select')
+                                    .append($('<option>').text('Error loading options').prop('disabled', true));
+                                selectorDiv.append(label);
+                                selectorDiv.append(select);
+                                mealSelectors.append(selectorDiv);
+                                initSelect2(`#${selectorId}`);
+                            }
+                            
+                            if (requestsCompleted === mealTypes.length) {
+                                loading.hide();
+                                foodSelection.show();
+                                foodSelection[0].scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }
+                    });
+                });
+            });
+
+            generatePlanBtn.click(function() {
+                if (!currentUserData) return;
+                
+                loading.show();
+                foodSelection.hide();
+                
+                const foodsToSend = {};
+                for (const mealType in selectedFoods) {
+                    foodsToSend[mealType] = selectedFoods[mealType].map(food => ({
+                        name: food.text,
+                        calories: food.calories || 0,
+                        protein: food.protein || 0,
+                        carbs: food.carbs || 0,
+                        fat: food.fat || 0
+                    }));
+                }
+                
+                console.log("Debug: Sending foods to backend:", foodsToSend);
+                if (Object.values(foodsToSend).every(arr => arr.length === 0)) {
+                    loading.hide();
+                    alert('Please select at least one food item for a meal.');
+                    foodSelection.show();
+                    return;
+                }
+                
+                $.ajax({
+                    url: '/generate-plan',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ 
+                        selected_foods: foodsToSend,
+                        user_data: {
+                            name: $('#name').val(),
+                            age: $('#age').val(),
+                            gender: $('#gender').val()
+                        },
+                        bmi: currentUserData.bmi,
+                        bmi_category: currentUserData.bmi_category,
+                        diet_type: currentUserData.dietType
+                    }),
+                    success: function(data) {
+                        loading.hide();
+                        results.show();
+                        
+                        currentPdfPath = data.pdf_path;
+                        currentReportId = data.report_id;
+                        
+                        if (data.cluster_plot) {
+                            clusterPlot.attr('src', `data:image/png;base64,${data.cluster_plot}`);
+                            clusterVisualization.show();
+                        }
+                        
+                        mealPlanDisplay.empty();
+                        for (const [mealType, foods] of Object.entries(foodsToSend)) {
+                            if (foods.length > 0) {
+                                const mealDiv = $('<div>').addClass('meal-category');
+                                let icon;
+                                switch(mealType) {
+                                    case 'Breakfast': icon = 'fa-sun'; break;
+                                    case 'Lunch': icon = 'fa-utensils'; break;
+                                    case 'Snack': icon = 'fa-coffee'; break;
+                                    case 'Dinner': icon = 'fa-moon'; break;
+                                    default: icon = 'fa-utensils';
+                                }
+                                const mealHeader = $('<h3>').html(`<i class="fas ${icon}"></i> ${mealType}`);
+                                const mealList = $('<ul>');
+                                foods.forEach(food => {
+                                    const foodItem = $('<li>').text(food.name);
+                                    const foodInfo = $('<div>').addClass('food-info')
+                                        .text(`Calories: ${food.calories} | Protein: ${food.protein}g | Carbs: ${food.carbs}g | Fat: ${food.fat}g`);
+                                    mealList.append(foodItem);
+                                    mealList.append(foodInfo);
+                                });
+                                mealDiv.append(mealHeader);
+                                mealDiv.append(mealList);
+                                mealPlanDisplay.append(mealDiv);
+                            }
+                        }
+                        
+                        if (data.nutrition_plot) {
+                            nutritionPlot.attr('src', `data:image/png;base64,${data.nutrition_plot}`);
+                            nutritionVisualization.show();
+                        }
+                        
+                        results[0].scrollIntoView({ behavior: 'smooth' });
+                    },
+                    error: function(error) {
+                        console.error('Error:', error.responseJSON);
+                        loading.hide();
+                        alert(error.responseJSON.error || 'An error occurred while generating your meal plan. Please try again.');
+                        foodSelection.show();
+                    }
+                });
+            });
+
+            dietForm.submit(function(event) {
+                event.preventDefault();
+                
+                loading.show();
+                nutrientAnalysis.hide();
+                foodSelection.hide();
+                results.hide();
+                clusterVisualization.hide();
+                nutritionVisualization.hide();
+                mealSelectors.empty();
+                selectedFoods = {
+                    Breakfast: [],
+                    Lunch: [],
+                    Snack: [],
+                    Dinner: []
+                };
+                
+                const name = $('#name').val();
+                const age = $('#age').val();
+                const gender = $('#gender').val();
+                const dietType = $('#dietType').val();
+                const weight = parseFloat($('#weight').val());
+                const height = parseFloat($('#height').val());
+                
+                const restrictions = $('input[name="restrictions"]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+                
+                if (!weight || !height || isNaN(weight) || isNaN(height)) {
+                    loading.hide();
+                    alert('Please enter valid weight and height.');
+                    return;
+                }
+                
+                const bmi = weight / Math.pow(height / 100, 2);
+                let bmiCategory = '';
+                let bmiClass = '';
+                let bmiCategoryNum = 0;
+                
+                if (bmi < 16) {
+                    bmiCategory = 'Severely Underweight';
+                    bmiClass = 'underweight';
+                    bmiCategoryNum = 4;
+                } else if (bmi < 18.5) {
+                    bmiCategory = 'Underweight';
+                    bmiClass = 'underweight';
+                    bmiCategoryNum = 3;
+                } else if (bmi < 25) {
+                    bmiCategory = 'Healthy';
+                    bmiClass = 'healthy';
+                    bmiCategoryNum = 2;
+                } else if (bmi < 30) {
+                    bmiCategory = 'Overweight';
+                    bmiClass = 'overweight';
+                    bmiCategoryNum = 1;
+                } else {
+                    bmiCategory = 'Severely Overweight';
+                    bmiClass = 'overweight';
+                    bmiCategoryNum = 0;
+                }
+                
+                currentUserData = {
+                    name,
+                    age,
+                    gender,
+                    dietType,
+                    weight,
+                    height,
+                    restrictions,
+                    bmi,
+                    bmi_category: bmiCategory,
+                    bmi_class: bmiClass,
+                    bmi_category_num: bmiCategoryNum
+                };
+                
+                bmiResult.html(`
+                    <div class="bmi-result ${bmiClass}">
+                        <strong>Your BMI:</strong> ${bmi.toFixed(1)} - ${bmiCategory}
+                    </div>
+                `);
+                
+                let notes = [`Diet Type: ${dietType.charAt(0).toUpperCase() + dietType.slice(1).replace('both', 'Both (Vegetarian & Non-Vegetarian)')}`];
+                if (restrictions.length > 0) {
+                    notes.push(`Dietary Restrictions: ${restrictions.join(', ')}`);
+                }
+                restrictionsNote.html(`
+                    <div class="bmi-result healthy">
+                        <strong>Note:</strong> ${notes.join(' | ')}
+                    </div>
+                `);
+                
+                // Get nutrient analysis
+                $.ajax({
+                    url: '/get-nutrient-analysis',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ 
+                        bmi: bmi,
+                        diet_type: dietType
+                    }),
+                    success: function(data) {
+                        loading.hide();
+                        
+                        if (data.nutrient_plot) {
+                            nutrientPlot.attr('src', `data:image/png;base64,${data.nutrient_plot}`);
+                        }
+                        
+                        let recommendation = '';
+                        if (bmiCategoryNum >= 3) { // Underweight
+                            recommendation = `
+                                <p>Based on your BMI (${bmi.toFixed(1)} - ${bmiCategory}), you need to <strong>increase your calorie intake</strong> to reach a healthy weight.</p>
+                                <p>Your daily calorie target is <strong>${data.target.Calories} kcal</strong>, with:</p>
+                                <ul>
+                                    <li><strong>Protein:</strong> ${data.target.Protein}g (to support muscle growth)</li>
+                                    <li><strong>Carbs:</strong> ${data.target.Carbs}g (for energy)</li>
+                                    <li><strong>Fat:</strong> ${data.target.Fat}g (for essential nutrients)</li>
+                                </ul>
+                                <p>We'll recommend calorie-dense foods to help you gain weight healthily.</p>
+                            `;
+                        } else if (bmiCategoryNum <= 1) { // Overweight
+                            recommendation = `
+                                <p>Based on your BMI (${bmi.toFixed(1)} - ${bmiCategory}), you need to <strong>reduce your calorie intake</strong> to reach a healthy weight.</p>
+                                <p>Your daily calorie target is <strong>${data.target.Calories} kcal</strong>, with:</p>
+                                <ul>
+                                    <li><strong>Protein:</strong> ${data.target.Protein}g (to preserve muscle mass)</li>
+                                    <li><strong>Carbs:</strong> ${data.target.Carbs}g (focus on complex carbs)</li>
+                                    <li><strong>Fat:</strong> ${data.target.Fat}g (healthy fats in moderation)</li>
+                                </ul>
+                                <p>We'll recommend nutrient-dense, lower-calorie foods to support healthy weight loss.</p>
+                            `;
+                        } else { // Healthy
+                            recommendation = `
+                                <p>Based on your BMI (${bmi.toFixed(1)} - ${bmiCategory}), you're at a healthy weight. We'll help you <strong>maintain your current weight</strong> with balanced nutrition.</p>
+                                <p>Your daily calorie target is <strong>${data.target.Calories} kcal</strong>, with:</p>
+                                <ul>
+                                    <li><strong>Protein:</strong> ${data.target.Protein}g (for muscle maintenance)</li>
+                                    <li><strong>Carbs:</strong> ${data.target.Carbs}g (for energy)</li>
+                                    <li><strong>Fat:</strong> ${data.target.Fat}g (for essential nutrients)</li>
+                                </ul>
+                                <p>We'll recommend a variety of foods to maintain your healthy lifestyle.</p>
+                            `;
+                        }
+                        
+                        recommendationText.html(recommendation);
+                        nutrientAnalysis.show();
+                        nutrientAnalysis[0].scrollIntoView({ behavior: 'smooth' });
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                        loading.hide();
+                        alert('An error occurred while analyzing your nutritional needs. Please try again.');
+                    }
+                });
+            });
+
+            $(document).on('change', '.food-select', function() {
+                let mealType = $(this).attr('id').replace('food-select-', '');
+                mealType = mealType.charAt(0).toUpperCase() + mealType.slice(1);
+                
+                const selected = $(this).select2('data');
+                
+                if (selected.length > 3) {
+                    $(this).val(selected.slice(0, 3).map(item => item.id)).trigger('change');
+                    return;
+                }
+                
+                selectedFoods[mealType] = selected.map(item => ({
+                    id: item.id,
+                    text: item.text,
+                    calories: $(item.element).data('calories') || 0,
+                    protein: $(item.element).data('protein') || 0,
+                    carbs: $(item.element).data('carbs') || 0,
+                    fat: $(item.element).data('fat') || 0
+                }));
+                
+                const totalSelected = Object.values(selectedFoods).reduce((sum, foods) => sum + foods.length, 0);
+                if (totalSelected > 0) {
+                    generatePlanBtn.removeClass('btn-disabled').prop('disabled', false);
+                } else {
+                    generatePlanBtn.addClass('btn-disabled').prop('disabled', true);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

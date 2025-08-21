@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Recommendation System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #45a049;
+            --accent-color: #8BC34A;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body, html {
+            height: 100%;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .logo {
+            font-size: 35px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .tilt-r {
+            display: inline-block;
+            transform: rotate(5deg);
+            transform-origin: 70% 70%;
+            font-style: italic;
+            margin-left: -5px;
+            margin-right: 2px;
+            color: black;
+            font-size: 38px;
+            position: relative;
+            top: -2px;
+        }
+        
+        .main-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 50px;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 50px;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+        
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            line-height: 1.1;
+        }
+        
+        .hero-title .line1 {
+            display: block;
+        }
+        
+        .hero-title .line2 {
+            display: block;
+            color: var(--primary-color);
+            margin-top: 5px;
+        }
+        
+        .hero-text {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+            max-width: 500px;
+        }
+        
+        .consult-btn {
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .consult-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-height: 100%;
+            position: relative;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .vitamin-tag {
+            position: absolute;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 18px;
+            transform: rotate(-15deg);
+            right: 100px;
+            top: 10%;
+        }
+        
+        .diet-flash p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .logo {
+                font-size: 28px;
+            }
+            
+            .tilt-r {
+                font-size: 30px;
+                top: -1px;
+            }
+            
+            .main-content {
+                flex-direction: column;
+                padding: 20px;
+                overflow-y: auto;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 20px;
+                text-align: center;
+                max-width: 100%;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+                text-align: center;
+            }
+            
+            .hero-text {
+                margin: 0 auto 20px;
+                text-align: center;
+            }
+            
+            .hero-image {
+                width: 100%;
+            }
+            
+            .hero-image img {
+                max-height: 50vh;
+            }
+            
+            .vitamin-tag {
+                right: 20px;
+                top: 60%;
+            }
+            
+            .diet-flash {
+                text-align: left;
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">Diet-<span class="tilt-r">R</span>ecommendator</div>
+        </nav>
+        
+        <div class="main-content">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="line1">Consult the</span>
+                    <span class="line2">Nutritionist</span>
+                </h1>
+                <p class="hero-text">
+                    A healthy diet is not just about losing weight, it's about nourishing your body. 
+                    Get personalized meal recommendations based on your unique profile and health goals.
+                </p>
+                <a href="/login" class="consult-btn">  <!-- Changed from /get-started to /login -->
+                    <i class="fas fa-utensils"></i> Get Started
+                </a>
+                
+                <div class="diet-flash">
+                    <p>🍽️ Meals made to match you</p>
+                    <p>🌿 Fuel your body the right way</p>
+                    <p>⚖️ Balanced diets based on your goals</p>
+                    <p>📊 Data-driven, health-focused</p>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/static/nutrition.jpg" alt="Healthy Diet">
+                <div class="vitamin-tag">VITAMIN</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>
