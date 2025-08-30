@@ -101,6 +101,7 @@ DietRecommendator/
 
 ##  Author
 
-- Project by: Aryan Raj, Anshika Chauhan  
+- Project by: Aryan Raj 
 - College/Institution: UPES, Dehradun
+
 - Guided by: Dr. Neeraj Chugh
