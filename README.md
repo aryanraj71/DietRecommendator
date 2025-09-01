@@ -62,6 +62,9 @@ This is a machine learning-powered diet recommendation web app that suggests per
 4. If suggestions are limited, KMeans finds nutrient-similar food
 5. User selects food → Nutritional info shown
 6. Final report is downloadable as PDF
+7. User’s input, analysis, and report are saved in the database
+8. Allows future tracking and comparison of diet reports
+
 
 ---
 
@@ -105,3 +108,4 @@ DietRecommendator/
 - College/Institution: UPES, Dehradun
 
 - Guided by: Dr. Neeraj Chugh
+
